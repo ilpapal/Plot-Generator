@@ -1,5 +1,5 @@
 % Function to generate demodulator bar graph with LLR Mean relative erro
-function ldpc_time_llr_plot(noise, iter, path)
+function ldpc_time_BER(noise, iter, path)
     % Load colors from colors.m
     run("colors.m");
 

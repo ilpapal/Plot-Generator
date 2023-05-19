@@ -1,5 +1,6 @@
 % Data input path
-path = "data/log_fxp_rate23_a025_latest";
+% path = "data/log_fxp_rate23_a025_latest";
+path = "data/log_demod_fxp_16bit_project";
 
 % Different LDPC Iterations
 iter = [2 5 10];
