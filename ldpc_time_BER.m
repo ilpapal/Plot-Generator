@@ -39,7 +39,7 @@ function ldpc_time_BER(noise, iter, path)
     % Create axes
     colororder([0 0 0]);
 
-    yyaxis right;
+%     yyaxis right;
     b = bar(y);
     b(1).FaceColor = navy_blue;
     b(2).FaceColor = steel_blue;
@@ -47,7 +47,8 @@ function ldpc_time_BER(noise, iter, path)
     ylabel("Execution time [ms]");
 %     ylim([0 2500]);
     
-    yyaxis left;
+%     yyaxis left;
+    yyaxis right;
     x_ber = 1:1:M;
     semilogy(x_ber, ber(:,1) + 0.0001, "-^", "MarkerSize", 7, "MarkerFaceColor", dark_red, "Color", dark_red);
     hold on;

@@ -9,17 +9,18 @@ logdata_fxp8 = readtable(path_fxp8 + "/log_data.txt");
 
 % Noise values 
 noise = [0 5 10 14 20];
+noise_full = 0:2:20;
 
 % Different LDPC Iterations
 iter = [2 5 10];
 
 % Different Modulations
 modul = [16 64 256 512 1024];
-% modul = 16;
 
 %% Generate BER and Eb/N0 plot for each QAM Modulation
 for i=1:length(modul)
-    EbN0_BER_QAM(logdata, logdata_fxp8, modul(i), iter, noise);
+%     EbN0_BER_QAM(logdata, logdata_fxp8, modul(i), iter, noise);
+    EbN0_BER_QAM(logdata, logdata_fxp8, modul(i), iter, noise_full);
 end
 
 %% Generate LDPC execution time and BER for each Noise

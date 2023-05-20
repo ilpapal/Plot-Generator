@@ -22,10 +22,12 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0)
     hold on;
 
     % Import BER FLP implementation reference 
-    refdata = readtable("data/log_flp_BER_ldpc10/log_data.txt");
+%     refdata = readtable("data/log_flp_BER_ldpc10/log_data.txt");
+    refdata = readtable("data/log_flp_sf8/log_data.txt");
 
     % Extract reference BER for specific Modulation and 10 LDPC iterations
-    idx = find(refdata.Modulation == modul & refdata.LDPC_Iter == 10);
+%     idx = find(refdata.Modulation == modul & refdata.LDPC_Iter == 10);
+    idx = find(refdata.Modulation == modul & refdata.LDPC_Iter == 50);
         
     % Create array with EbN0dB noise and BER value
     y(:,1) = refdata.EbN0dB(idx);
@@ -35,7 +37,7 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0)
     semilogy(y(:,1), y(:,2) + eps, ...
         "-*", "MarkerSize", 7, "LineWidth", 1,...
         "MarkerFaceColor", dark_red, "Color", dark_red,...
-        "DisplayName", "FLP 10 Iter");
+        "DisplayName", "FLP 50 Iter (Sf=8)");
     hold on;
 
     % For loop
