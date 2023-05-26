@@ -44,28 +44,28 @@ function demod_time_fxp16_fxp8_precision(noise, iter, path_fxp16, path_fxp8, pat
     ytips1 = b(2).YEndPoints;
     labels1 = string("x" + logdata_fxp16.Demod_Speedup(idx_fxp16)');
     text(xtips1, ytips1, labels1, "HorizontalAlignment", "left",...
-        "VerticalAlignment", "bottom", "FontSize", 6, "Rotation", 45);
+        "VerticalAlignment", "bottom", "FontSize", 5, "Rotation", 45);
     
     % Add speed for fxp8
     xtips2 = b(3).XEndPoints;
     ytips2 = b(3).YEndPoints;
     labels2 = string("x" + logdata_fxp8.Demod_Speedup(idx_fxp8)');
     text(xtips2, ytips2, labels2, "HorizontalAlignment", "left",...
-        "VerticalAlignment", "bottom", "FontSize", 6, "Rotation", 45);
+        "VerticalAlignment", "bottom", "FontSize", 5, "Rotation", 45);
 
     % Add speedup for fxp16 precision
     xtips1 = b(4).XEndPoints;
     ytips1 = b(4).YEndPoints;
     labels3 = string("x" + logdata_fxp16_p.Demod_Speedup(idx_fxp16_p)');
     text(xtips1, ytips1, labels3, "HorizontalAlignment", "left",...
-        "VerticalAlignment", "bottom", "FontSize", 6, "Rotation", 45);
+        "VerticalAlignment", "bottom", "FontSize", 5, "Rotation", 45);
 
     % Add speed for fxp8 precision
     xtips2 = b(5).XEndPoints;
     ytips2 = b(5).YEndPoints;
     labels4 = string("x" + logdata_fxp8_p.Demod_Speedup(idx_fxp8_p)');
     text(xtips2, ytips2, labels4, "HorizontalAlignment", "left",...
-        "VerticalAlignment", "bottom", "FontSize", 6, "Rotation", 45);
+        "VerticalAlignment", "bottom", "FontSize", 5, "Rotation", 45);
 
     ylabel("Execution time [ms]");
 
@@ -82,11 +82,11 @@ function demod_time_fxp16_fxp8_precision(noise, iter, path_fxp16, path_fxp8, pat
 
     plot(logdata_fxp16_p.Demod_Speedup(idx_fxp16_p), "--^",...
         "MarkerSize", 5,...
-        "MarkerFaceColor", coral, "Color", coral);
+        "MarkerFaceColor", sea_green, "Color", sea_green);
 
     plot(logdata_fxp8_p.Demod_Speedup(idx_fxp8_p), ":^",...
         "MarkerSize", 5,...
-        "MarkerFaceColor", coral, "Color", coral);
+        "MarkerFaceColor", sea_green, "Color", sea_green);
 
     % Add x and y axis labels
     xticklabels(x_labels);
@@ -101,7 +101,7 @@ function demod_time_fxp16_fxp8_precision(noise, iter, path_fxp16, path_fxp8, pat
            "FXP S2.14 NEON (Precision)", "FXP S2.6 NEON (Precision)", ...
            "FXP S2.14 Speedup (Optimal)", "FXP S2.6 Speedup (Optimal)",...
            "FXP S2.14 Speedup (Precision)", "FXP S2.6 Speedup (Precision)",...
-        "Location", "southoutside", "NumColumns", 2, "FontSize", 8);
+        "Location", "southoutside", "NumColumns", 2, "FontSize", 7);
 
     saveas(gca, "plots/demod_plot_opt_prec_EbN0dB_" + noise, "epsc");
     save("data");
