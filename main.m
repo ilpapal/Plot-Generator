@@ -8,8 +8,10 @@ logdata = readtable(path_fxp16 + "/log_data.txt");
 logdata_fxp8 = readtable(path_fxp8 + "/log_data.txt");
 
 path_fxp16_p = "data/log_fxp_16bit_prec_32blocks";
+path_fxp8_p = "data/log_fxp_8bit_prec_32blocks";
 
 logdata_p = readtable(path_fxp16_p + "/log_data.txt");
+logdata_fxp8_p = readtable(path_fxp8_p + "/log_data.txt");
 
 % Noise values 
 % noise = [0 10 14 20];
@@ -29,12 +31,13 @@ end
 
 %% Generate BER and Eb/N0 plot for each QAM Modulation (FXP 16 and FXP 8 precision)
 for i=1:length(modul)
-    EbN0_BER_QAM(logdata_p, logdata_fxp8, modul(i), iter, noise_full, "precision");
+    EbN0_BER_QAM(logdata_p, logdata_fxp8_p, modul(i), iter, noise_full, "precision");
 end
 
 %% Generate BER and Eb/N0 plot for QAM1024 (0-30dB)
 logdata_qam1024 = readtable("data/log_fxp_16bit_QAM1024/log_data.txt");
-EbN0_BER_QAM(logdata_qam1024, logdata_fxp8, 1024, iter, 0:2:30, "precision_range");
+logdata_qam1024_fxp8 = readtable("data/log_fxp_8bit_QAM1024/log_data.txt");
+EbN0_BER_QAM(logdata_qam1024, logdata_qam1024_fxp8, 1024, iter, 0:2:30, "extrange");
 
 %% Generate LDPC execution time and BER for each Noise
 for i = 1:length(noise)
@@ -48,10 +51,10 @@ end
 
 %% Generate Demodulator FXP16 and FXP8 execution time (precision)
 for i = 1:length(noise)
-    demod_time_fxp16_fxp8(noise(i), 2, path_fxp16_p, path_fxp8, "precision");
+    demod_time_fxp16_fxp8(noise(i), 2, path_fxp16_p, path_fxp8_p, "precision");
 end
 
 %% Generate Demodulator FXP16 and FXP8 execution time (optimal and precision)
 for i = 1:length(noise)
-    demod_time_fxp16_fxp8_precision(noise(i), 2, path_fxp16, path_fxp8, path_fxp16_p, path_fxp8);
+    demod_time_fxp16_fxp8_precision(noise(i), 2, path_fxp16, path_fxp8, path_fxp16_p, path_fxp8_p);
 end

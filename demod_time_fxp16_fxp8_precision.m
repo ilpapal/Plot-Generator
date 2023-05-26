@@ -37,39 +37,39 @@ function demod_time_fxp16_fxp8_precision(noise, iter, path_fxp16, path_fxp8, pat
     b(2).FaceColor = steel_blue;
     b(3).FaceColor = powder_blue;
     b(4).FaceColor = deep_sky_blue;
-    b(5).FaceColor = dodger_blue;
+    b(5).FaceColor = cornflower_blue;
 
     % Add speedup for fxp16
     xtips1 = b(2).XEndPoints;
     ytips1 = b(2).YEndPoints;
     labels1 = string("x" + logdata_fxp16.Demod_Speedup(idx_fxp16)');
     text(xtips1, ytips1, labels1, "HorizontalAlignment", "left",...
-        "VerticalAlignment", "bottom", "FontSize", 7, "Rotation", 45);
+        "VerticalAlignment", "bottom", "FontSize", 6, "Rotation", 45);
     
     % Add speed for fxp8
     xtips2 = b(3).XEndPoints;
     ytips2 = b(3).YEndPoints;
     labels2 = string("x" + logdata_fxp8.Demod_Speedup(idx_fxp8)');
     text(xtips2, ytips2, labels2, "HorizontalAlignment", "left",...
-        "VerticalAlignment", "bottom", "FontSize", 7, "Rotation", 45);
+        "VerticalAlignment", "bottom", "FontSize", 6, "Rotation", 45);
 
     % Add speedup for fxp16 precision
     xtips1 = b(4).XEndPoints;
     ytips1 = b(4).YEndPoints;
     labels3 = string("x" + logdata_fxp16_p.Demod_Speedup(idx_fxp16_p)');
     text(xtips1, ytips1, labels3, "HorizontalAlignment", "left",...
-        "VerticalAlignment", "bottom", "FontSize", 7, "Rotation", 45);
+        "VerticalAlignment", "bottom", "FontSize", 6, "Rotation", 45);
 
     % Add speed for fxp8 precision
     xtips2 = b(5).XEndPoints;
     ytips2 = b(5).YEndPoints;
     labels4 = string("x" + logdata_fxp8_p.Demod_Speedup(idx_fxp8_p)');
     text(xtips2, ytips2, labels4, "HorizontalAlignment", "left",...
-        "VerticalAlignment", "bottom", "FontSize", 7, "Rotation", 45);
+        "VerticalAlignment", "bottom", "FontSize", 6, "Rotation", 45);
 
     ylabel("Execution time [ms]");
 
-    % Plot speedup for fxp16
+    % Plot speedup for fxp16 (original: dark_red & coral)
     yyaxis right;
     plot(logdata_fxp16.Demod_Speedup(idx_fxp16), "--^",...
         "MarkerSize", 5,...
@@ -101,7 +101,7 @@ function demod_time_fxp16_fxp8_precision(noise, iter, path_fxp16, path_fxp8, pat
            "FXP S2.14 NEON (Precision)", "FXP S2.6 NEON (Precision)", ...
            "FXP S2.14 Speedup (Optimal)", "FXP S2.6 Speedup (Optimal)",...
            "FXP S2.14 Speedup (Precision)", "FXP S2.6 Speedup (Precision)",...
-        "Location", "southoutside", "NumColumns", 2);
+        "Location", "southoutside", "NumColumns", 2, "FontSize", 8);
 
     saveas(gca, "plots/demod_plot_opt_prec_EbN0dB_" + noise, "epsc");
     save("data");
