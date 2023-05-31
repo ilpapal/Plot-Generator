@@ -58,3 +58,5 @@ end
 for i = 1:length(noise)
     demod_time_fxp16_fxp8_precision(noise(i), 2, path_fxp16, path_fxp8, path_fxp16_p, path_fxp8_p);
 end
+
+%% Generate Demodulator FXP16 Approximate BER
