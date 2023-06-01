@@ -6,7 +6,7 @@ input_data = readtable("data/misc.txt");
 data_ref = table2array(input_data(:, 1));
 data_fxp = table2array(input_data(:, 2));
 
-% Calculate error of double and fixed point datatype
+% Calculate error of doumable and fixed point datatype
 error = (data_ref - data_fxp)./(data_ref).*100;
 
 % Skip error calculation when denominator is zero

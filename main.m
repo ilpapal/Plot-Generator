@@ -30,7 +30,7 @@ for i=1:length(modul)
 end
 
 %% Generate BER and Eb/N0 plot for each QAM Modulation (FXP 16 and FXP 8 precision)
-for i=1:length(modul)
+for i=1:length(modul)logdata_qam16_fxp = readtable("data/")
     EbN0_BER_QAM(logdata_p, logdata_fxp8_p, modul(i), iter, noise_full, "precision");
 end
 
@@ -59,4 +59,23 @@ for i = 1:length(noise)
     demod_time_fxp16_fxp8_precision(noise(i), 2, path_fxp16, path_fxp8, path_fxp16_p, path_fxp8_p);
 end
 
-%% Generate Demodulator FXP16 Approximate BER
+%% Generate Demodulator FXP16 Approximate BER (1 distance)
+logdata_qam16_apprx_1d = readtable("data/log_fxp_approx_1d/log_data.txt");
+EbN0_BER_QAM(logdata, logdata_qam16_apprx_1d, 16, iter, noise_full, "approx-1d");
+
+%% Generate Demodulator FXP16 Approximate BER (2 distances)
+logdata_qam16_apprx_2d = readtable("data/log_fxp_approx_2d/log_data.txt");
+EbN0_BER_QAM(logdata, logdata_qam16_apprx_2d, 16, iter, noise_full, "approx-2d");
+
+%% Generate Demodulator FXP16 Approximate BER (2 distances)
+logdata_qam16_apprx_1d = readtable("data/log_fxp_approx_1d/log_data.txt");
+logdata_qam16_apprx_2d = readtable("data/log_fxp_approx_2d/log_data.txt");
+EbN0_BER_QAM(logdata_qam16_apprx_1d, logdata_qam16_apprx_2d, 16, iter, noise_full, "approx");
+
+%% Generate Demodulator FXP16 Approximate BER (bad)
+logdata_qam16_apprx_bad = readtable("data/log_fxp_approx_bad/log_data.txt");
+EbN0_BER_QAM(logdata, logdata_qam16_apprx_bad, 16, iter, noise_full, "approx-bad");
+
+%% Generate Demodulator FXP16 Approximate BER (full)
+logdata_qam16_apprx_full = readtable("data/log_fxp_approx_full/log_data.txt");
+EbN0_BER_QAM(logdata, logdata_qam16_apprx_full, 16, iter, noise_full, "approx-full");

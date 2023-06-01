@@ -20,7 +20,7 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
     semilogy(EbN0_fit, BER_theor + eps, ...
         "-", "MarkerSize", 7, "LineWidth", 1,...
         "MarkerFaceColor", sea_green, "Color", sea_green,...
-        "DisplayName", "MATLAB Reference");
+        "DisplayName", "Theoretical Reference");
     hold on;
 
     % Import BER FLP implementation reference 
@@ -55,7 +55,8 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
         semilogy(y_fxp16(:,1), y_fxp16(:,2) + eps, ...
             lines_1(i), "MarkerSize", 5, "LineWidth", 1,...
             "MarkerFaceColor", navy_blue, "Color", navy_blue,...
-            "DisplayName", "FXP S2.14 " + iter(i) + " Iter");
+            "DisplayName", "FXP S2.14 APX1 " + iter(i) + " Iter");
+%             "DisplayName", "FXP S2.14 " + iter(i) + " Iter");
         hold on;
     end
 
@@ -72,7 +73,8 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
         semilogy(y_fxp8(:,1), y_fxp8(:,2) + eps, ...
             lines_2(i), "MarkerSize", 5, "LineWidth", 1,...
             "MarkerFaceColor", steel_blue, "Color", steel_blue,...
-            "DisplayName", "FXP S2.6 " + iter(i) + " Iter");
+            "DisplayName", "FXP S2.14 APX2 " + iter(i) + " Iter");
+%             "DisplayName", "FXP S2.6 " + iter(i) + " Iter");
         hold on;
     end
 
@@ -85,7 +87,9 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
     grid on;
     xlabel("Eb/N0 [dB]");
     ylabel("Bit Error Rate (BER)");
-    legend("show", "Location", "southwest");
+%     legend("show", "Location", "southwest");
+    legend("show", "Location", "northeast");
+%     legend("show", "Location", "southeast");
     
     % Save plot
     % gcf
