@@ -30,7 +30,7 @@ for i=1:length(modul)
 end
 
 %% Generate BER and Eb/N0 plot for each QAM Modulation (FXP 16 and FXP 8 precision)
-for i=1:length(modul)logdata_qam16_fxp = readtable("data/")
+for i=1:length(modul)
     EbN0_BER_QAM(logdata_p, logdata_fxp8_p, modul(i), iter, noise_full, "precision");
 end
 
@@ -68,9 +68,11 @@ logdata_qam16_apprx_2d = readtable("data/log_fxp_approx_2d/log_data.txt");
 EbN0_BER_QAM(logdata, logdata_qam16_apprx_2d, 16, iter, noise_full, "approx-2d");
 
 %% Generate Demodulator FXP16 Approximate BER (2 distances)
-logdata_qam16_apprx_1d = readtable("data/log_fxp_approx_1d/log_data.txt");
-logdata_qam16_apprx_2d = readtable("data/log_fxp_approx_2d/log_data.txt");
-EbN0_BER_QAM(logdata_qam16_apprx_1d, logdata_qam16_apprx_2d, 16, iter, noise_full, "approx");
+% logdata_qam16_apprx_1d = readtable("data/log_fxp_approx_1d/log_data.txt");
+% logdata_qam16_apprx_2d = readtable("data/log_fxp_approx_2d/log_data.txt");
+logdata_qam16_apprx_2d = readtable("data/log_fxp_approx_nofec/log_data.txt");
+% EbN0_BER_QAM(logdata_qam16_apprx_1d, logdata_qam16_apprx_2d, 16, iter, noise_full, "approx");
+EbN0_BER_QAM_approx(logdata_qam16_apprx_1d, logdata_qam16_apprx_2d, 16, iter, noise_full, "approx");
 
 %% Generate Demodulator FXP16 Approximate BER (bad)
 logdata_qam16_apprx_bad = readtable("data/log_fxp_approx_bad/log_data.txt");
@@ -79,3 +81,11 @@ EbN0_BER_QAM(logdata, logdata_qam16_apprx_bad, 16, iter, noise_full, "approx-bad
 %% Generate Demodulator FXP16 Approximate BER (full)
 logdata_qam16_apprx_full = readtable("data/log_fxp_approx_full/log_data.txt");
 EbN0_BER_QAM(logdata, logdata_qam16_apprx_full, 16, iter, noise_full, "approx-full");
+
+%% Generate Demodulator FXP16 Approximate BER (2 distances - 128blocks)
+logdata_qam16_apprx_2d_128 = readtable("data/log_fxp_approx_2d_128/log_data.txt");
+EbN0_BER_QAM(logdata, logdata_qam16_apprx_2d_128, 16, iter, noise_full, "approx-2d-128");
+
+%% Generate Demodulator FXP16 Approximate BER (1 distance - 128blocks)
+logdata_qam16_apprx_1d_128 = readtable("data/log_fxp_approx_1d_128/log_data.txt");
+EbN0_BER_QAM(logdata, logdata_qam16_apprx_1d_128, 16, iter, noise_full, "approx-1d-128");

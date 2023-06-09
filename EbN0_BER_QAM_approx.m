@@ -1,5 +1,5 @@
 % Function to plot all BER values for one modulation
-function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
+function EbN0_BER_QAM_approx(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
     % Load colors from colors.m
     run("colors.m");
     
@@ -18,18 +18,18 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
     % Add markers for calculated datapoints
     figure;
     semilogy(EbN0_fit, BER_theor + eps, ...
-        "-", "MarkerSize", 7, "LineWidth", 1,...
+        "-", "MarkerSize", 7, ...
         "MarkerFaceColor", sea_green, "Color", sea_green,...
         "DisplayName", "Theoretical Reference");
     hold on;
 
     % Import BER FLP implementation reference 
-%     refdata = readtable("data/log_flp_BER_ldpc10/log_data.txt");
-    refdata = readtable("data/log_flp_sf8_32blocks/log_data.txt");
+    refdata = readtable("data/approx/log_flp_ldpc_qam16/log_data.txt");
+%     refdata = readtable("data/log_flp_sf8_32blocks/log_data.txt");
+%     refdata = readtable("data/log_flp_qam16_nofec/log_data.txt");
 
     % Extract reference BER for specific Modulation and 10 LDPC iterations
-%     idx = find(refdata.Modulation == modul & refdata.LDPC_Iter == 10);
-    idx = find(refdata.Modulation == modul & refdata.LDPC_Iter == 50);
+    idx = find(refdata.Modulation == modul & refdata.LDPC_Iter == 30);
         
     % Create array with EbN0dB noise and BER value
     y_flp(:,1) = refdata.EbN0dB(idx);
@@ -37,12 +37,13 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
 
     % Add markers for calculated datapoints
     semilogy(y_flp(:,1), y_flp(:,2) + eps, ...
-        "-*", "MarkerSize", 7, "LineWidth", 1,...
+        "-*", "MarkerSize", 7, ...
         "MarkerFaceColor", dark_red, "Color", dark_red,...
         "DisplayName", "FLP 50 Iter");
     hold on;
 
     % For loop
+%     iter = [2 5 10];
     for i=1:length(iter)
         % Extract data from table for specific Modulation and LDPC iterations
         idx = find(logdata.Modulation == modul & logdata.LDPC_Iter == iter(i));
@@ -53,13 +54,14 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
 
         % Plot BER relative to Eb/N0
         semilogy(y_fxp16(:,1), y_fxp16(:,2) + eps, ...
-            lines_1(i), "MarkerSize", 5, "LineWidth", 1,...
-            "MarkerFaceColor", navy_blue, "Color", navy_blue,...
+            lines_1(i), "MarkerSize", 6, ...
+            "Color", navy_blue,...
             "DisplayName", "FXP S2.14 " + iter(i) + " Iter");
 %             "DisplayName", "FXP S2.14 APX1 " + iter(i) + " Iter");
         hold on;
     end
 
+    iter = [2 5 10];
     for i=1:length(iter)
         % FX8
         idx_2 = find(logdata_fxp8.Modulation == modul & logdata_fxp8.LDPC_Iter == iter(i));
@@ -71,19 +73,19 @@ function EbN0_BER_QAM(logdata, logdata_fxp8, modul, iter, EbN0, impl_name)
 
         % Plot BER relative to Eb/N0
         semilogy(y_fxp8(:,1), y_fxp8(:,2) + eps, ...
-            lines_2(i), "MarkerSize", 5, "LineWidth", 1,...
-            "MarkerFaceColor", steel_blue, "Color", steel_blue,...
+            lines_2(i), "MarkerSize", 6,...
+            "Color", steel_blue,...
             "DisplayName", "FXP S2.14 APX2 " + iter(i) + " Iter");
 %             "DisplayName", "FXP S2.6 " + iter(i) + " Iter");
         hold on;
     end
 
     % For y axis values range
-    ylim([10^(-4) 1]);
+    ylim([10^(-5) 1]);
 
     % Add title and labels to plot
     title("QAM" + modul + ...
-            " (32 Blocks, N=64800, Rate=3/4, " + impl_name + ")");
+            " (32 Blocks, N=64800, Rate=1/2, " + impl_name + ")");
     grid on;
     xlabel("Eb/N0 [dB]");
     ylabel("Bit Error Rate (BER)");
