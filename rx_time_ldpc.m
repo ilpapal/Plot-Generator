@@ -31,48 +31,48 @@ function rx_time_ldpc( ...
     % FLP Base
     y(1,1) = mean(logdata_fxp_base16.Demod_Base(idx_fxp_base16));
     y(1,2) = mean(logdata_fxp_base16.Deinterleaver(idx_fxp_base16));
-    y(1,3) = mean(logdata_fxp_base16.Deinterleaver(idx_fxp_base16));
+    y(1,3) = mean(logdata_fxp_base16.Decoder(idx_fxp_base16));
     base = y(1,1) + y(1,2) + y(1,3);
 
     % S2.14 Base MUL16
     y(2,1) = mean(logdata_fxp_base16.Demod_Opt(idx_fxp_base16));
     y(2,2) = mean(logdata_fxp_base16.Deinterleaver(idx_fxp_base16));
-    y(2,3) = mean(logdata_fxp_base16.Deinterleaver(idx_fxp_base16));
+    y(2,3) = mean(logdata_fxp_base16.Decoder(idx_fxp_base16));
 
     % S2.14 Approx MUL16
     y(3,1) = mean(logdata_fxp_approx16.Demod_Opt(idx_fxp_approx16));
     y(3,2) = mean(logdata_fxp_approx16.Deinterleaver(idx_fxp_approx16));
-    y(3,3) = mean(logdata_fxp_base16.Deinterleaver(idx_fxp_approx16));
+    y(3,3) = mean(logdata_fxp_base16.Decoder(idx_fxp_approx16));
 
     % S2.14 Base MUL32
     y(4,1) = mean(logdata_fxp_base32.Demod_Opt(idx_fxp_base32));
     y(4,2) = mean(logdata_fxp_base32.Deinterleaver(idx_fxp_base32));
-    y(4,3) = mean(logdata_fxp_base32.Deinterleaver(idx_fxp_base32));
+    y(4,3) = mean(logdata_fxp_base32.Decoder(idx_fxp_base32));
 
     % S2.14 Approx MUL32
     y(5,1) = mean(logdata_fxp_approx32.Demod_Opt(idx_fxp_approx32));
     y(5,2) = mean(logdata_fxp_approx32.Deinterleaver(idx_fxp_approx32));
-    y(5,3) = mean(logdata_fxp_approx32.Deinterleaver(idx_fxp_approx32));
+    y(5,3) = mean(logdata_fxp_approx32.Decoder(idx_fxp_approx32));
 
     % S2.6 Base MUL16
     y(6,1) = mean(logdata_fxp8_base16.Demod_Opt(idx_fxp8_base16));
     y(6,2) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_base16));
-    y(6,3) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_base16));
+    y(6,3) = mean(logdata_fxp8_base16.Decoder(idx_fxp8_base16));
 
     % S2.6 Approx MUL16
     y(7,1) = mean(logdata_fxp8_base16.Demod_Opt(idx_fxp8_approx16));
     y(7,2) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_approx16));
-    y(7,3) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_approx16));
+    y(7,3) = mean(logdata_fxp8_base16.Decoder(idx_fxp8_approx16));
         
     % S2.6 Base MUL32
     y(8,1) = mean(logdata_fxp8_base16.Demod_Opt(idx_fxp8_base32));
     y(8,2) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_base32));
-    y(8,3) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_base32));
+    y(8,3) = mean(logdata_fxp8_base16.Decoder(idx_fxp8_base32));
 
     % S2.6 Approx MUL32
     y(9,1) = mean(logdata_fxp8_base16.Demod_Opt(idx_fxp8_approx32));
     y(9,2) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_approx32));
-    y(9,3) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_approx32));
+    y(9,3) = mean(logdata_fxp8_base16.Decoder(idx_fxp8_approx32));
 
 
     % Calculate speedup
@@ -85,7 +85,7 @@ function rx_time_ldpc( ...
 %     colororder([0 0 0]);
 %     x = ["FLP Base" "FXP S2.14 Base" "FXP S2.14 Approx"]; 
 
-    b = bar(y, "stacked", "BarWidth", 0.38);
+    b = bar(y, "stacked", "BarWidth", 0.39, "EdgeColor", "none");
     
 %     xticklabels({});
 
@@ -113,7 +113,7 @@ function rx_time_ldpc( ...
         "VerticalAlignment", "bottom", "FontSize", 9, "Rotation", 45)
 
     % Misc plot settings
-    title("Receiver with LDPC (" + iter + " Iterations - QAM64 (N = 64800)");
+    title("Receiver with LDPC at " + iter + " Iterations - QAM64 (N = 64800)");
     grid on;
 %     xlabel("Modulation type");
     legend("Demodulator", "De-interleaver", "LDPC (" + iter + " Iter)",...
@@ -121,6 +121,6 @@ function rx_time_ldpc( ...
 
     set(gca, 'TickLabelInterpreter','latex');
 
-    saveas(gca, "plots/rx_ldpc_qam64", "epsc");
+    saveas(gca, "plots/rx_ldpc" + iter + "_qam64", "epsc");
     save("data");
 end

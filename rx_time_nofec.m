@@ -76,7 +76,7 @@ function rx_time_nofec( ...
 %     colororder([0 0 0]);
 %     x = ["FLP Base" "FXP S2.14 Base" "FXP S2.14 Approx"]; 
 
-    b = bar(y, "stacked", "BarWidth", 0.38);
+    b = bar(y, "stacked", "BarWidth", 0.39, "EdgeColor", "none");
     
 %     xticklabels({});
 
@@ -112,6 +112,6 @@ function rx_time_nofec( ...
 
     set(gca, 'TickLabelInterpreter','latex');
 
-    saveas(gca, "plots/rx_qam64", "epsc");
+    saveas(gca, "plots/rx_nofec_qam64", "epsc");
     save("data");
 end

@@ -40,7 +40,7 @@ function demod_time_fxp16_fxp32_approx(noise, iter, path_fxp16_orig, path_fxp16_
     figure;
 %     colororder([0 0 0]);
 %     x = ["FLP Base" "FXP S2.14 Base" "FXP S2.14 Approx"]; 
-    b = bar(1, y);
+    b = bar(1, y, "EdgeColor", "none");
 
     xticklabels({});
 

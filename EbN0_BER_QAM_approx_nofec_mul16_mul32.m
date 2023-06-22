@@ -32,7 +32,7 @@ function EbN0_BER_QAM_approx_nofec_mul16_mul32( ...
 
     % ---------------------------------------------------------------------
     % Import BER FLP implementation reference 
-    flp_path = "data/approx/log_flp_nofec_qam" + modul + "/log_data.txt";
+    flp_path = "data/approx/QAM64/log_flp_nofec_qam" + modul + "/log_data.txt";
     refdata = readtable(flp_path);
 
     % Extract reference BER for specific Modulation and 0 LDPC iterations
