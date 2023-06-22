@@ -1,6 +1,6 @@
 % Simple program to calculate Mean Relative Error
 
-input_data = readtable("data/misc.txt");
+input_data = readtable("data/approx/misc.txt");
 
 % Get variables from log file
 data_ref = table2array(input_data(:, 1));
@@ -20,3 +20,4 @@ error = abs(error);
 
 % Print mean value of error
 disp("Error mean value: " + mean(error) + " %");
+
