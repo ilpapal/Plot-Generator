@@ -12,9 +12,9 @@ function EbN0_BER_QAM_approx_ldpc( ...
 
     % Define implementation multiplication
     if mul == 16
-        fxp = "MUL16";
+        mul = "MUL16";
     elseif mul == 32
-        fxp = "MUL32";
+        mul = "MUL32";
     end
 
     % Load colors from colors.m
@@ -42,11 +42,12 @@ function EbN0_BER_QAM_approx_ldpc( ...
 
     % ---------------------------------------------------------------------
     % Import BER FLP implementation reference 
-    flp_path = "data/approx/log_flp_ldpc_qam" + modul + "/log_data.txt";
+    flp_path = "data/approx/QAM64/log_flp_ldpc_qam" + modul + "/log_data.txt";
+%     flp_path = "data/approx/QAM64/log_flp_ldpc/log_data.txt";
     refdata = readtable(flp_path);
 
     % Extract reference BER for specific Modulation and 0 LDPC iterations
-    idx_1 = find(refdata.Modulation == modul & refdata.LDPC_Iter == 30);
+    idx_1 = find(refdata.Modulation == modul & refdata.LDPC_Iter == 50);
         
     % Create array with EbN0dB noise and BER value
     y_flp(:,1) = refdata.EbN0dB(idx_1);
@@ -56,7 +57,7 @@ function EbN0_BER_QAM_approx_ldpc( ...
     semilogy(y_flp(:,1), y_flp(:,2) + eps, ...
         "--*", "MarkerSize", 7, ...
         "MarkerFaceColor", dark_red, "Color", dark_red,...
-        "DisplayName", "FLP Base");
+        "DisplayName", "FLP Base, 50 Iter");
     hold on;
 
 
@@ -75,7 +76,7 @@ function EbN0_BER_QAM_approx_ldpc( ...
         semilogy(y_fxp(:,1), y_fxp(:,2) + eps, ...
             lines_1(i), "MarkerSize", 6, ...
             "Color", navy_blue,...
-            "DisplayName", fxp + " Base " + mul + " ," + iter(i) + " Iter");
+            "DisplayName", fxp + " Base " + mul + ", " + iter(i) + " Iter");
         hold on;
     end
     
@@ -95,7 +96,7 @@ function EbN0_BER_QAM_approx_ldpc( ...
         semilogy(y_fxp_a(:,1), y_fxp_a(:,2) + eps, ...
             lines_2(i), "MarkerSize", 6, ...
             "Color", steel_blue,...
-            "DisplayName", fxp + " Approx " + mul + " ," + iter(i) + " Iter");
+            "DisplayName", fxp + " Approx " + mul + ", " + iter(i) + " Iter");
         hold on;
     end
 
@@ -105,7 +106,7 @@ function EbN0_BER_QAM_approx_ldpc( ...
 
     % Add title and labels to plot
     title("QAM" + modul + ...
-            " (32 Blocks, N=64800, " + impl_name + ")");
+            " (32 Blocks, N=64800, Rate=3/4)");
     grid on;
     
     xlabel("$E_b/N_0$ [dB]");

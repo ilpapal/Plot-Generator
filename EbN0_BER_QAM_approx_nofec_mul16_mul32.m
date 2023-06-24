@@ -128,8 +128,10 @@ function EbN0_BER_QAM_approx_nofec_mul16_mul32( ...
 
     % Add title and labels to plot
     title("QAM" + modul + ...
-            " (32 Blocks, N=64800, " + impl_name + ")");
+            " (32 Blocks, N=64800)");
     grid on;
+
+%     " (32 Blocks, N=64800, " + impl_name + ")");
     
     xlabel("$E_b/N_0$ [dB]");
     ylabel("Bit Error Rate (BER)");

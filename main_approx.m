@@ -65,17 +65,17 @@ EbN0_BER_QAM_approx_nofec_mul16_mul32( ...
 
 
 %% Generate Demodulator FXP16 Approximate BER LDPC
-log_fxp_ldpc_base16_qam64 = readtable("data/approx/log_fxp_nofec_base_qam64/log_data.txt");
-log_fxp_ldpc_base32_qam64 = readtable("data/approx/log_fxp_nofec_base32_qam64/log_data.txt");
+log_fxp_ldpc_base16_qam64 = readtable("data/approx/QAM64/log_fxp16_ldpc_base_mul16_qam64/log_data.txt");
+log_fxp_ldpc_base32_qam64 = readtable("data/approx/QAM64/log_fxp16_ldpc_base_mul32_qam64/log_data.txt");
 
-log_fxp_ldpc_approx16_qam64 = readtable("data/approx/QAM64/log_fxp16_nofec_approx_mul16_qam64/log_data.txt");
-log_fxp_ldpc_approx32_qam64 = readtable("data/approx/QAM64/log_fxp16_nofec_approx_mul32_qam64/log_data.txt");
+log_fxp_ldpc_approx16_qam64 = readtable("data/approx/QAM64/log_fxp16_ldpc_approx_mul16_qam64/log_data.txt");
+log_fxp_ldpc_approx32_qam64 = readtable("data/approx/QAM64/log_fxp16_ldpc_approx_mul32_qam64/log_data.txt");
 
-log_fxp8_ldpc_base16_qam64 = readtable("data/approx/QAM64/log_fxp8_nofec_base_mul16_qam64/log_data.txt");
-log_fxp8_ldpc_base32_qam64 = readtable("data/approx/QAM64/log_fxp8_nofec_base_mul32_qam64/log_data.txt");
+log_fxp8_ldpc_base16_qam64 = readtable("data/approx/QAM64/log_fxp8_ldpc_base_mul16_qam64/log_data.txt");
+log_fxp8_ldpc_base32_qam64 = readtable("data/approx/QAM64/log_fxp8_ldpc_base_mul32_qam64/log_data.txt");
 
-log_fxp8_ldpc_approx16_qam64 = readtable("data/approx/QAM64/log_fxp8_nofec_approx_mul16_qam64/log_data.txt");
-log_fxp8_ldpc_approx32_qam64 = readtable("data/approx/QAM64/log_fxp8_nofec_approx_mul32_qam64/log_data.txt");
+log_fxp8_ldpc_approx16_qam64 = readtable("data/approx/QAM64/log_fxp8_ldpc_approx_mul16_qam64/log_data.txt");
+log_fxp8_ldpc_approx32_qam64 = readtable("data/approx/QAM64/log_fxp8_ldpc_approx_mul32_qam64/log_data.txt");
 
 % 16-Bit
 EbN0_BER_QAM_approx_ldpc( ...
@@ -84,7 +84,7 @@ EbN0_BER_QAM_approx_ldpc( ...
 
 % 16-Bit
 EbN0_BER_QAM_approx_ldpc( ...
-    log_fxp_ldpc_base16_qam64, log_fxp_ldpc_approx16_qam64, ...
+    log_fxp_ldpc_base32_qam64, log_fxp_ldpc_approx32_qam64, ...
     64, noise_full, iter, "approx", 16, 32);
 
 %% 8-Bit
@@ -93,7 +93,7 @@ EbN0_BER_QAM_approx_ldpc( ...
     64, noise_full, iter, "approx", 8, 16);
 
 EbN0_BER_QAM_approx_ldpc( ...
-    log_fxp8_ldpc_base16_qam64, log_fxp8_ldpc_approx16_qam64, ...
+    log_fxp8_ldpc_base32_qam64, log_fxp8_ldpc_approx32_qam64, ...
     64, noise_full, iter, "approx", 8, 32);
 
 
@@ -113,3 +113,11 @@ for i=1:length(iter)
         log_fxp8_ldpc_base32_qam64, log_fxp8_ldpc_approx32_qam64, ...
         iter(i));
 end
+
+
+%% Demod exec time
+demod_time( ...
+    log_fxp_nofec_base16_qam64, log_fxp_nofec_approx16_qam64, ...
+    log_fxp_nofec_base32_qam64, log_fxp_nofec_approx32_qam64, ...
+    log_fxp8_nofec_base16_qam64, log_fxp8_nofec_approx16_qam64, ...
+    log_fxp8_nofec_base32_qam64, log_fxp8_nofec_approx32_qam64);

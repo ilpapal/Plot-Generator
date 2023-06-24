@@ -1,5 +1,5 @@
 % Function to generate demodulator bar graph with LLR Mean relative erro
-function rx_time_nofec( ...
+function demod_time( ...
     logdata_fxp_base16, logdata_fxp_approx16,...
     logdata_fxp_base32, logdata_fxp_approx32,...
     logdata_fxp8_base16, logdata_fxp8_approx16,...
@@ -27,59 +27,38 @@ function rx_time_nofec( ...
     idx_fxp8_base32 = find(logdata_fxp8_base32.LDPC_Iter == 0);
     idx_fxp8_approx32 = find(logdata_fxp8_approx32.LDPC_Iter == 0);
 
-    delay = 5.2;
-
     % Create array with base and optimized time values
     % FLP Base
     y(1,1) = mean(logdata_fxp_base16.Demod_Base(idx_fxp_base16));
-    y(1,2) = delay;
-    y(1,3) = mean(logdata_fxp_base16.Deinterleaver(idx_fxp_base16));
-    base = y(1,1) + y(1,2) + y(1,3);
+    base = y(1,1);
 
     % S2.14 Base MUL16
     y(2,1) = mean(logdata_fxp_base16.Demod_Opt(idx_fxp_base16));
-    y(2,2) = delay;
-    y(2,3) = mean(logdata_fxp_base16.Deinterleaver(idx_fxp_base16));
 
     % S2.14 Approx MUL16
     y(3,1) = mean(logdata_fxp_approx16.Demod_Opt(idx_fxp_approx16));
-    y(3,2) = delay;
-    y(3,3) = mean(logdata_fxp_approx16.Deinterleaver(idx_fxp_approx16));
 
     % S2.14 Base MUL32
     y(4,1) = mean(logdata_fxp_base32.Demod_Opt(idx_fxp_base32));
-    y(4,2) = delay;
-    y(4,3) = mean(logdata_fxp_base32.Deinterleaver(idx_fxp_base32));
 
     % S2.14 Approx MUL32
     y(5,1) = mean(logdata_fxp_approx32.Demod_Opt(idx_fxp_approx32));
-    y(5,2) = delay;
-    y(5,3) = mean(logdata_fxp_approx32.Deinterleaver(idx_fxp_approx32));
 
     % S2.6 Base MUL16
     y(6,1) = mean(logdata_fxp8_base16.Demod_Opt(idx_fxp8_base16));
-    y(6,2) = delay;
-    y(6,3) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_base16));
 
     % S2.6 Approx MUL16
     y(7,1) = mean(logdata_fxp8_approx16.Demod_Opt(idx_fxp8_approx16));
-    y(7,2) = delay;
-    y(7,3) = mean(logdata_fxp8_approx16.Deinterleaver(idx_fxp8_approx16));
         
     % S2.6 Base MUL32
     y(8,1) = mean(logdata_fxp8_base32.Demod_Opt(idx_fxp8_base32));
-    y(8,2) = delay;
-    y(8,3) = mean(logdata_fxp8_base32.Deinterleaver(idx_fxp8_base32));
 
     % S2.6 Approx MUL32
     y(9,1) = mean(logdata_fxp8_approx32.Demod_Opt(idx_fxp8_approx32));
-    y(9,2) = delay;
-    y(9,3) = mean(logdata_fxp8_approx32.Deinterleaver(idx_fxp8_approx32));
-
 
     % Calculate speedup
     for i=2:9
-        speedup(i) = round(base/(y(i,1) + y(i,2) + delay), 2);
+        speedup(i) = round(base/y(i,1), 2);
     end
 
     % Bar graph
@@ -96,12 +75,10 @@ function rx_time_nofec( ...
         "S2.6-BASE16", "S2.6-APRX16", "S2.6-BASE32", "S2.6-APRX32"];
     set(gca, "XTickLabel", x_labels);
 
-
-%     b(1).FaceColor = dark_red;
     b(1).FaceColor = navy_blue;
-    b(2).FaceColor = steel_blue;
-    b(3).FaceColor = powder_blue;
-
+%     b(2).FaceColor = steel_blue;
+    
+%     b(3).FaceColor = powder_blue;
 %     b(4).FaceColor = sky_blue;
 %     b(5).FaceColor = royal_blue; 
     
@@ -109,8 +86,8 @@ function rx_time_nofec( ...
     xlabel("Demodulator Implementation");
 
     % Add speedup for fxp16
-    xtips1 = b(2).XEndPoints;
-    ytips1 = b(2).YEndPoints;
+    xtips1 = b(1).XEndPoints;
+    ytips1 = b(1).YEndPoints;
     labels1 = string("$\times$" + speedup);
     labels1(1) = " ";
     text(xtips1, ytips1, labels1, "HorizontalAlignment", "left",...
@@ -122,7 +99,7 @@ function rx_time_nofec( ...
 %     yline(y(2,1)+y(2,2),'--r');
 
     % Misc plot settings
-    title("Receiver without FEC - QAM64 (N = 64800)");
+    title("Demodulator - QAM64 (N = 64800)");
 %     grid on;
 
     ax = gca;
@@ -130,11 +107,11 @@ function rx_time_nofec( ...
     ax.YGrid = 'on';
 
 %     xlabel("Modulation type");
-    legend("Demodulator", "Align", "De-interleaver",...
+    legend("Demodulator",...
         "Location", "northeast");
 
     set(gca, 'TickLabelInterpreter','latex');
 
-    saveas(gca, "plots/rx_nofec_qam64", "epsc");
+    saveas(gca, "plots/demod_qam64", "epsc");
     save("data");
 end
