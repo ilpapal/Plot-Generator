@@ -135,7 +135,7 @@ function rx_time_ldpc( ...
 
 %     xlabel("Modulation type");
     legend("Demodulator", "Align", "De-interleaver", "LDPC (" + iter + " Iter)",...
-        "Location", "southeast");
+        "Location", "northoutside", "Orientation", "horizontal");
 
     set(gca, 'TickLabelInterpreter','latex');
 
