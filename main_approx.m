@@ -26,16 +26,34 @@ demod_time_fxp16_approx(10, 0, path_fxp16_orig, path_fxp16_approx);
 
 
 %% Generate Demodulator FXP16 execution time (original and approximate)
-path_fxp16_orig = "data/approx/log_fxp_nofec_base_qam16";
-path_fxp16_approx = "data/approx/log_fxp_nofec_approx_qam16";
-path_fxp32_orig = "data/approx/log_fxp_nofec_base_qam16";
-path_fxp32_approx = "data/approx/log_fxp_nofec_approx_qam16";
-
-demod_time_fxp16_fxp32_approx(10, 0, ...
-    path_fxp16_orig, path_fxp16_approx, path_fxp16_orig, path_fxp16_approx);
+% path_fxp16_orig = "data/approx/log_fxp_nofec_base_qam16";
+% path_fxp16_approx = "data/approx/log_fxp_nofec_approx_qam16";
+% path_fxp32_orig = "data/approx/log_fxp_nofec_base_qam16";
+% path_fxp32_approx = "data/approx/log_fxp_nofec_approx_qam16";
 
 
+% demod_time_fxp16_fxp32_approx(10, 0, ...
+%     path_fxp16_orig, path_fxp16_approx, path_fxp16_orig, path_fxp16_approx);
 
+log_fxp_nofec_base16_qam16 = readtable("data/approx/log_fxp_nofec_base_qam16/log_data.txt");
+log_fxp_nofec_approx16_qam16 = readtable("data/approx/log_fxp_nofec_approx_qam16/log_data.txt");
+log_fxp_nofec_base32_qam16 = readtable("data/approx/log_fxp_nofec_base32_qam16/log_data.txt");
+log_fxp_nofec_approx32_qam16 = readtable("data/approx/log_fxp_nofec_approx_qam16/log_data.txt");
+
+demod_time_qam16(...
+    log_fxp_nofec_base16_qam16, log_fxp_nofec_approx16_qam16, log_fxp_nofec_base32_qam16, log_fxp_nofec_approx32_qam16);
+
+%% Rx total time (QAM16)
+rx_time_nofec_qam16(...
+    log_fxp_nofec_base16_qam16, log_fxp_nofec_approx16_qam16, log_fxp_nofec_base32_qam16, log_fxp_nofec_approx32_qam16);
+
+%% Rx total time with LDPC (QAM16)
+for i=1:length(iter)
+    rx_time_ldpc_qam16( ...
+        log_fxp_ldpc_base16_qam64, log_fxp_ldpc_approx16_qam64, ...
+        log_fxp_ldpc_base32_qam64, log_fxp_ldpc_approx32_qam64, ...
+        iter(i));
+end
 
 %% ****** QAM 64 ******
 %% Generate Demodulator FXP16 Approximate BER NO FEC
@@ -98,10 +116,10 @@ EbN0_BER_QAM_approx_ldpc( ...
 
 
 %% Combined (QAM16)
-log_fxp_nofec_base32_qam16 = readtable("data/approx/log_fxp_nofec_base32_qam16/log_data.txt");
-log_fxp_nofec_approx32_qam16 = readtable("data/approx/log_fxp_nofec_approx_qam16/log_data.txt");
-log_fxp_ldpc_base32_qam16 = readtable("data/approx/log_fxp_ldpc_base_qam16/log_data.txt");
-log_fxp_ldpc_approx32_qam16 = readtable("data/approx/log_fxp_ldpc_approx_qam16/log_data.txt");
+log_fxp_nofec_base32_qam16 = readtable("data/approx/QAM16/log_fxp_nofec_base32_qam16/log_data.txt");
+log_fxp_nofec_approx32_qam16 = readtable("data/approx/QAM16/log_fxp_nofec_approx32_qam16/log_data.txt");
+log_fxp_ldpc_base32_qam16 = readtable("data/approx/QAM16/log_fxp_ldpc_base32_qam16/log_data.txt");
+log_fxp_ldpc_approx32_qam16 = readtable("data/approx/QAM16/log_fxp_ldpc_approx32_qam16/log_data.txt");
 
 EbN0_BER_QAM_combined( ...
     log_fxp_nofec_base32_qam16, log_fxp_nofec_approx32_qam16, ...
@@ -109,12 +127,6 @@ EbN0_BER_QAM_combined( ...
     16, noise_full, 5);
 
 %% Combined (QAM64)
-EbN0_BER_QAM_combined( ...
-    log_fxp_nofec_base32_qam64, log_fxp_nofec_approx32_qam64, ...
-    log_fxp_ldpc_base32_qam64, log_fxp_ldpc_approx32_qam64, ...
-    64, noise_full, 5);
-
-%% Combined (QAM16)
 EbN0_BER_QAM_combined( ...
     log_fxp_nofec_base32_qam64, log_fxp_nofec_approx32_qam64, ...
     log_fxp_ldpc_base32_qam64, log_fxp_ldpc_approx32_qam64, ...

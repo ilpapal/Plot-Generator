@@ -35,8 +35,8 @@ function demod_time_fxp16_approx(noise, iter, path_fxp16_orig, path_fxp16_approx
 
     xticklabels({});
 
-    b(1).FaceColor = navy_blue;
-    b(2).FaceColor = steel_blue;
+    b(1).FaceColor = blue80;
+    b(2).FaceColor = teal50;
     b(3).FaceColor = powder_blue;
 
     

@@ -1,9 +1,7 @@
 % Function to generate demodulator bar graph with LLR Mean relative erro
-function rx_time_ldpc( ...
+function rx_time_ldpc_qam16( ...
     logdata_fxp_base16, logdata_fxp_approx16,...
     logdata_fxp_base32, logdata_fxp_approx32,...
-    logdata_fxp8_base16, logdata_fxp8_approx16,...
-    logdata_fxp8_base32, logdata_fxp8_approx32,...
     iter)
 
     % Load colors from colors.m
@@ -14,18 +12,11 @@ function rx_time_ldpc( ...
     set(0, 'defaultLegendInterpreter', 'latex');
 
     % Extract data from table for specific noise and LDPC iterations
-    % idx_fxp_base16 = find(logdata_fxp_base16.EbN0dB == noise & logdata_fxp_base16.LDPC_Iter == 0);
     idx_fxp_base16 = find(logdata_fxp_base16.LDPC_Iter == iter);
     idx_fxp_approx16 = find(logdata_fxp_approx16.LDPC_Iter == iter);
 
     idx_fxp_base32 = find(logdata_fxp_base32.LDPC_Iter == iter);
     idx_fxp_approx32 = find(logdata_fxp_base32.LDPC_Iter == iter);
-
-    idx_fxp8_base16 = find(logdata_fxp8_base16.LDPC_Iter == iter);
-    idx_fxp8_approx16 = find(logdata_fxp8_approx16.LDPC_Iter == iter);
-
-    idx_fxp8_base32 = find(logdata_fxp8_base32.LDPC_Iter == iter);
-    idx_fxp8_approx32 = find(logdata_fxp8_approx32.LDPC_Iter == iter);
 
     delay = 5.2;
 
@@ -61,33 +52,8 @@ function rx_time_ldpc( ...
     y(5,3) = mean(logdata_fxp_approx32.Deinterleaver(idx_fxp_approx32));
     y(5,4) = mean(logdata_fxp_approx32.Decoder(idx_fxp_approx32));
 
-    % S2.6 Base MUL16
-    y(6,1) = mean(logdata_fxp8_base16.Demod_Opt(idx_fxp8_base16));
-    y(6,2) = delay;
-    y(6,3) = mean(logdata_fxp8_base16.Deinterleaver(idx_fxp8_base16));
-    y(6,4) = mean(logdata_fxp8_base16.Decoder(idx_fxp8_base16));
-
-    % S2.6 Approx MUL16
-    y(7,1) = mean(logdata_fxp8_approx16.Demod_Opt(idx_fxp8_approx16));
-    y(7,2) = delay;
-    y(7,3) = mean(logdata_fxp8_approx16.Deinterleaver(idx_fxp8_approx16));
-    y(7,4) = mean(logdata_fxp8_approx16.Decoder(idx_fxp8_approx16));
-        
-    % S2.6 Base MUL32
-    y(8,1) = mean(logdata_fxp8_base32.Demod_Opt(idx_fxp8_base32));
-    y(8,2) = delay;
-    y(8,3) = mean(logdata_fxp8_base32.Deinterleaver(idx_fxp8_base32));
-    y(8,4) = mean(logdata_fxp8_base32.Decoder(idx_fxp8_base32));
-
-    % S2.6 Approx MUL32
-    y(9,1) = mean(logdata_fxp8_approx32.Demod_Opt(idx_fxp8_approx32));
-    y(9,2) = delay;
-    y(9,3) = mean(logdata_fxp8_approx32.Deinterleaver(idx_fxp8_approx32));
-    y(9,4) = mean(logdata_fxp8_approx32.Decoder(idx_fxp8_approx32));
-
-
     % Calculate speedup
-    for i=2:9
+    for i=2:5
         speedup(i) = round(base/(y(i,1) + y(i,2) + y(i,3) + y(i,4)), 2);
     end
 
@@ -101,8 +67,7 @@ function rx_time_ldpc( ...
 %     xticklabels({});
 
     x_labels = ["FLP64-B64", ...
-        "FXP16-B16", "FXP16-A16", "FXP16-B32", "FXP16-A32", ...
-        "FXP8-B16", "FXP8-A16", "FXP8-B32", "FXP8-A32"];
+        "FXP16-B16", "FXP16-A16", "FXP16-B32", "FXP16-A32"];
     set(gca, "XTickLabel", x_labels);
 
     % b(1).FaceColor = navy_blue;
@@ -154,13 +119,12 @@ function rx_time_ldpc( ...
 
     % Set vertical lines for seperating implementations
     xline(1.5, '--', 'HandleVisibility','off');
-    xline(5.5, '--', 'HandleVisibility','off');
 
     set(gca, 'TickLabelInterpreter','latex');
-    set(gcf, 'Position', [10, 10, 570, 290]);
+    set(gcf, 'Position', [10, 10, 510, 290]);
 
     % saveas(gca, "plots/rx_ldpc" + iter + "_qam64", "epsc");
-    saveas(gcf, "plots/rx_ldpc" + iter + "_qam64.pdf");
-    system("sudo pdfcrop plots/rx_ldpc" + iter + "_qam64.pdf plots/rx_ldpc" + iter + "_qam64.pdf");
+    saveas(gcf, "plots/rx_ldpc" + iter + "_qam16.pdf");
+    system("sudo pdfcrop plots/rx_ldpc" + iter + "_qam16.pdf plots/rx_ldpc" + iter + "_qam16.pdf");
     save("data");
 end

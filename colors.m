@@ -1,3 +1,11 @@
+% Predefined color pallete
+blue80 = [0 45 156] / 255;
+teal50 = [0 157 154] / 255;
+magenta70 = [159 24 83] / 255;
+red90 = [87 4 8] / 255;
+purple50 = [165 110 255] / 255;
+
+
 % Define RGB values for blue color palette
 navy_blue = [0.00, 0.00, 0.50];
 royal_blue = [0.25, 0.41, 0.88];
